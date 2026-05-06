@@ -1,0 +1,979 @@
+%======================================================================
+%  GRAPHRACER -- Presentation Beamer
+%  Auteurs : SAAD OMIT & IZADINE
+%======================================================================
+\documentclass[aspectratio=169,12pt]{beamer}
+
+%----------------------------------------------------------------------
+% Theme & couleurs
+%----------------------------------------------------------------------
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\definecolor{darkbg}{HTML}{020617}
+\definecolor{mycyan}{HTML}{22d3ee}
+\definecolor{myblue}{HTML}{2563eb}
+\definecolor{mypurple}{HTML}{9333ea}
+\definecolor{mygreen}{HTML}{22c55e}
+\definecolor{myred}{HTML}{ef4444}
+\definecolor{myyellow}{HTML}{facc15}
+\definecolor{myslate}{HTML}{334155}
+\definecolor{mylightslate}{HTML}{cbd5e1}
+
+\setbeamercolor{palette primary}{bg=darkbg,fg=white}
+\setbeamercolor{palette secondary}{bg=darkbg,fg=mycyan}
+\setbeamercolor{palette tertiary}{bg=darkbg,fg=white}
+\setbeamercolor{palette quaternary}{bg=darkbg,fg=white}
+\setbeamercolor{structure}{fg=mycyan}
+\setbeamercolor{background canvas}{bg=darkbg}
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{frametitle}{bg=darkbg,fg=mycyan}
+\setbeamercolor{block title}{bg=myblue,fg=white}
+\setbeamercolor{block body}{bg=myslate!30!darkbg,fg=white}
+\setbeamercolor{block title alerted}{bg=myred,fg=white}
+\setbeamercolor{block body alerted}{bg=myred!20!darkbg,fg=white}
+\setbeamercolor{block title example}{bg=mygreen,fg=darkbg}
+\setbeamercolor{block body example}{bg=mygreen!20!darkbg,fg=white}
+\setbeamercolor{title}{fg=mycyan}
+\setbeamercolor{subtitle}{fg=mylightslate}
+\setbeamercolor{author}{fg=white}
+\setbeamercolor{date}{fg=mylightslate}
+
+%----------------------------------------------------------------------
+% Packages
+%----------------------------------------------------------------------
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{dirtree}
+
+%----------------------------------------------------------------------
+% Style listings JavaScript (ASCII uniquement dans les blocs de code)
+%----------------------------------------------------------------------
+\lstdefinelanguage{JavaScript}{
+  keywords={const,let,var,function,return,if,else,for,while,new,this,
+             export,import,from,of,class,extends,async,await,true,false,null},
+  keywordstyle=\color{mycyan}\bfseries,
+  ndkeywords={useState,useEffect,useRef,useCallback,useContext,createContext},
+  ndkeywordstyle=\color{myyellow},
+  identifierstyle=\color{white},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{mylightslate}\itshape,
+  stringstyle=\color{mygreen},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`
+}
+
+\lstset{
+  language=JavaScript,
+  basicstyle=\ttfamily\footnotesize\color{white},
+  backgroundcolor=\color{myslate!20!darkbg},
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{myslate},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  xleftmargin=0.5em,
+  xrightmargin=0.5em,
+  lineskip=-0.5pt,
+  extendedchars=false,
+  inputencoding=utf8
+}
+
+%----------------------------------------------------------------------
+% Macros
+%----------------------------------------------------------------------
+\newcommand{\tech}[1]{\textcolor{mycyan}{\textbf{\texttt{#1}}}}
+\newcommand{\highlight}[1]{\textcolor{myyellow}{\textbf{#1}}}
+\newcommand{\success}[1]{\textcolor{mygreen}{\textbf{#1}}}
+\newcommand{\danger}[1]{\textcolor{myred}{\textbf{#1}}}
+
+%======================================================================
+\title{\Huge\textbf{GRAPH}\textcolor{white}{RACER}}
+\subtitle{Engineer Edition --- Pr\'esentation Technique \& Business Plan}
+\author{\textbf{SAAD OMIT} \and \textbf{IZADINE}}
+\date{\today}
+%======================================================================
+
+\begin{document}
+
+%---------- SLIDE TITRE ------------------------------------------------
+\begin{frame}[plain]
+  \vfill
+  \centering
+  {\Huge \textcolor{mycyan}{\textbf{GRAPH}}\textbf{\textcolor{white}{RACER}}}\\[0.4cm]
+  {\large \textcolor{mylightslate}{Engineer Edition}}\\[1cm]
+  \begin{tikzpicture}
+    \draw[mycyan, thick, ->] (0,0) -- (8,0) node[right,white] {$x$};
+    \draw[mycyan, thick, ->] (0,-0.5) -- (0,2.5) node[above,white] {$f(x)$};
+    \draw[myyellow, very thick, domain=0:7.5, samples=80]
+      plot (\x, {1.2*sin(\x r) + 1.2});
+    \fill[myyellow] (4.8, 1.85) rectangle (5.6, 2.25);
+    \fill[darkbg!80!white] (5.0, 2.25) rectangle (5.4, 2.5);
+    \fill[darkbg] (5.0, 1.7) circle (0.15);
+    \fill[darkbg] (5.6, 1.7) circle (0.15);
+    \node[myyellow] at (2.5, 2.6) {\large $\bigstar$};
+  \end{tikzpicture}\\[0.8cm]
+  {\large \textbf{SAAD OMIT} \quad \& \quad \textbf{IZADINE}}\\[0.3cm]
+  {\small \textcolor{mylightslate}{\today}}
+  \vfill
+\end{frame}
+
+%---------- PLAN -------------------------------------------------------
+\begin{frame}{Plan de la Pr\'esentation}
+  \tableofcontents
+\end{frame}
+
+%======================================================================
+\section{Pr\'esentation du Projet}
+%======================================================================
+
+\begin{frame}{Qu'est-ce que GraphRacer ?}
+  \begin{columns}
+    \column{0.55\textwidth}
+    \begin{block}{Concept}
+      GraphRacer est un \highlight{jeu \'educatif de course} o\`u le joueur pilote
+      une voiture en \'ecrivant des \textbf{\'equations math\'ematiques}.
+      La courbe trac\'ee devient la route.
+    \end{block}
+    \vspace{0.4cm}
+    \begin{itemize}
+      \item \textbf{Public cible :} Lyc\'eens / \'Etudiants (ITS)
+      \item \textbf{Mode solo :} 8 niveaux progressifs
+      \item \textbf{Mode multi :} Course via QR Code + t\'el\'ephone
+      \item \textbf{Objectif :} Apprendre les fonctions maths en jouant
+    \end{itemize}
+    \column{0.42\textwidth}
+    \begin{exampleblock}{Fonctions utilisables}
+      \begin{itemize}
+        \item Lin\'eaire : \tech{0.5 * x}
+        \item Parabole : \tech{-0.1*(x-20)\^{}2+10}
+        \item Sinus : \tech{5*sin(x/5)}
+        \item Valeur absolue : \tech{-abs(x-20)+15}
+        \item Racine carr\'ee : \tech{sqrt(x)}
+        \item Combinaisons !
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Stack Technologique}
+  \begin{columns}
+    \column{0.48\textwidth}
+    \begin{block}{Front-end}
+      \begin{itemize}
+        \item \tech{React 19} --- SPA avec routing
+        \item \tech{React Router DOM} --- Navigation
+        \item \tech{Canvas API} --- Moteur graphique 2D
+        \item \tech{Web Audio API} --- Sons synth\'etis\'es
+        \item \tech{Tailwind CSS} --- Styles
+        \item \tech{lucide-react} --- Ic\^ones
+        \item \tech{qrcode.react} --- G\'en\'eration QR
+      \end{itemize}
+    \end{block}
+    \column{0.48\textwidth}
+    \begin{block}{Back-end}
+      \begin{itemize}
+        \item \tech{Node.js + Express} --- Serveur HTTP
+        \item \tech{Socket.io} --- Temps r\'eel (WebSocket)
+      \end{itemize}
+    \end{block}
+    \vspace{0.3cm}
+    \begin{alertblock}{Architecture}
+      Application \textbf{full-stack JavaScript} : m\^eme langage partout.
+      Le serveur ne g\`ere que la \textbf{signalisation} --- la physique tourne
+      enti\`erement \textbf{c\^ot\'e client}.
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+%======================================================================
+\section{Architecture du Code}
+%======================================================================
+
+\begin{frame}{Structure des Fichiers}
+  \begin{columns}
+    \column{0.48\textwidth}
+    \dirtree{%
+      .1 graphracer/.
+      .2 \textcolor{mycyan}{server.js}.
+      .2 package.json.
+      .2 src/.
+      .3 \textcolor{mycyan}{App.js}.
+      .3 \textcolor{myyellow}{context/}.
+      .4 GameContext.jsx.
+      .3 \textcolor{myyellow}{engine/}.
+      .4 MathParser.js.
+      .3 \textcolor{myyellow}{data/}.
+      .4 levels.js.
+      .3 \textcolor{myyellow}{pages/}.
+      .4 Home.jsx.
+      .4 LevelSelect.jsx.
+      .4 \textcolor{mycyan}{Game.jsx}.
+      .4 Garage.jsx.
+      .4 Settings.jsx.
+      .4 \textcolor{mycyan}{MultiplayerHost.jsx}.
+      .4 \textcolor{mycyan}{RemoteController.jsx}.
+    }
+    \column{0.48\textwidth}
+    \begin{tikzpicture}[scale=0.75, every node/.style={font=\small}]
+      \node[draw=mycyan,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=3cm,minimum height=0.6cm] (app) at (3,5) {App.js (Router)};
+      \node[draw=myyellow,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=2.5cm] (ctx) at (1,3.5) {GameContext};
+      \node[draw=mycyan,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=2.5cm] (game) at (4.5,2) {Game.jsx};
+      \node[draw=mycyan,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=2.5cm] (mhost) at (1,2) {MultiHost};
+      \node[draw=mygreen,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=2.5cm] (math) at (4.5,0.5) {MathParser};
+      \node[draw=mypurple,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=2.5cm] (srv) at (1,0.5) {server.js};
+      \node[draw=mypurple,fill=myslate!30!darkbg,text=white,rounded corners,minimum width=2.5cm] (rc) at (4.5,3.5) {RemoteCtrl};
+      \draw[->,mycyan] (app) -- (ctx);
+      \draw[->,mycyan] (app) -- (game);
+      \draw[->,mycyan] (app) -- (mhost);
+      \draw[->,mycyan] (app) -- (rc);
+      \draw[->,mygreen] (game) -- (math);
+      \draw[->,mypurple,dashed] (mhost) -- (srv);
+      \draw[->,mypurple,dashed] (rc) -- (srv);
+    \end{tikzpicture}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Routing et Navigation (App.js)}
+  \begin{block}{7 routes React Router DOM}
+    \vspace{0.2cm}
+    \begin{tabular}{lll}
+      \toprule
+      \textcolor{mycyan}{Route} & \textcolor{myyellow}{Composant} & \textcolor{mylightslate}{Description}\\
+      \midrule
+      \texttt{/} & \tech{Home} & Menu principal (1J / Multi / Garage)\\
+      \texttt{/select} & \tech{LevelSelect} & Grille des 8 niveaux\\
+      \texttt{/game} & \tech{Game} & Moteur de jeu solo\\
+      \texttt{/garage} & \tech{Garage} & Personnalisation couleurs\\
+      \texttt{/settings} & \tech{Settings} & Options (grille\ldots)\\
+      \texttt{/multi-host} & \tech{MultiplayerHost} & PC h\^ote course\\
+      \texttt{/join} & \tech{RemoteController} & T\'el\'ephone joueur\\
+      \bottomrule
+    \end{tabular}
+  \end{block}
+  \vspace{0.3cm}
+  L'\'etat global (niveau, couleurs, progression) transite par \tech{GameContext}
+  via le pattern \textbf{React Context + localStorage}.
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{\'Etat Global --- GameContext.jsx}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{\'Etats persist\'es (localStorage)}
+      \begin{itemize}
+        \item \tech{currentLevel} --- niveau actif
+        \item \tech{unlockedLevels[]} --- niveaux d\'ebloqués
+        \item \tech{carColor} --- couleur voiture
+        \item \tech{lineColor} --- couleur trac\'e
+        \item \tech{bgColor} --- fond de jeu
+        \item \tech{showGrid} --- affichage grille
+      \end{itemize}
+    \end{block}
+    \column{0.48\textwidth}
+\begin{lstlisting}
+// Auto-save to localStorage
+useEffect(() => {
+  localStorage.setItem(
+    'carColor', carColor);
+  localStorage.setItem(
+    'unlockedLevels',
+    JSON.stringify(unlockedLevels));
+}, [carColor, unlockedLevels]);
+
+// Progressive unlock
+const unlockNextLevel = (id) => {
+  if(!unlockedLevels.includes(id+1))
+    setUnlockedLevels(
+      prev => [...prev, id+1]);
+};
+\end{lstlisting}
+  \end{columns}
+\end{frame}
+
+%======================================================================
+\section{Fonctionnalit\'es Impl\'ement\'ees}
+%======================================================================
+
+\begin{frame}{Fonctionnalit\'e 1 --- Moteur Math\'ematique (MathParser.js)}
+  \begin{block}{Principe : \'Equation texte $\rightarrow$ Points $\rightarrow$ Courbe}
+  \end{block}
+\begin{lstlisting}
+export const generateCurve = (equationStr, distance) => {
+  // 1. Nettoyage : remplace les mots par du JS pur
+  let safeEq = equationStr.toLowerCase()
+    .replace(/sin/g, 'Math.sin')
+    .replace(/abs/g, 'Math.abs')
+    .replace(/\^/g,  '**');   // x^2 -> x**2
+
+  // 2. Compilation dynamique
+  const f = new Function('x', `return ${safeEq}`);
+
+  // 3. Discretisation (pas de 0.1 metre)
+  for (let x = 0; x <= distance; x += 0.1) {
+    const y = -f(x);  // inversion Y (repere ecran)
+    if (!isFinite(y) || isNaN(y)) continue;
+    points.push({ x: x*SCALE, y: y*SCALE, realX: x, realY: -y });
+  }
+};
+\end{lstlisting}
+  \vspace{0.2cm}
+  \textcolor{myyellow}{\textbf{Note :}} La constante \tech{SCALE = 40} convertit les m\`etres en pixels.
+  L'inversion de $Y$ est indispensable car l'axe Y descend en informatique.
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 2 --- Tron\c{c}ons de Fonctions}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Idée}
+      Le joueur peut d\'efinir \textbf{plusieurs segments} de fonctions
+      sur des intervalles distincts.\\[0.4cm]
+      Exemple niveau 6 « Les Tron\c{c}ons » :\\
+      \begin{enumerate}
+        \item $f(x) = 0$ sur $[0 ; 30]$
+        \item $f(x) = x - 30$ sur $[30 ; 70]$
+      \end{enumerate}
+    \end{block}
+    \column{0.48\textwidth}
+\begin{lstlisting}
+// Calcul Y global a targetX
+const getWorldY = (targetX) => {
+ // Trouve le segment actif
+ const seg = [...segments]
+   .reverse()
+   .find(s =>
+     targetX >= s.start &&
+     targetX <  s.end);
+ if (!seg) return null;
+
+ // Continuite entre segments
+ let startH = 0;
+ if (seg.start > 0)
+  startH = getWorldY(seg.start-0.01);
+
+ const localX = targetX - seg.start;
+ return startH + eval(seg.eq, localX);
+};
+\end{lstlisting}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 3 --- Moteur de Jeu (Game.jsx)}
+  \begin{block}{Double Canvas pour les performances}
+    \tech{bgCanvasRef} : sol statique, redessin\'e \`a chaque changement d'\'equation\\
+    \tech{carCanvasRef} : voiture + particules, redessin\'e \`a 60 FPS
+  \end{block}
+\begin{lstlisting}
+// Boucle RAF (requestAnimationFrame)
+const gameLoop = useCallback(() => {
+  // 1. Physique particules (fumee, explosion)
+  gameState.current.particles.forEach(p => {
+    p.x += p.vx;  p.y += p.vy;
+    p.life -= p.decay;
+  });
+
+  // 2. Deplacement + consommation carburant
+  if (autoDrive) {
+    gameState.current.x    += 0.3;
+    gameState.current.fuel -= 0.15;
+  }
+
+  // 3. Detection collision (trou / obstacle)
+  if (currentY < -5) setGameStatus('crashed');
+
+  // 4. Dessin + boucle suivante
+  drawCarFrame();
+  requestRef.current = requestAnimationFrame(gameLoop);
+}, [gameStatus, currentLevel, drawCarFrame]);
+\end{lstlisting}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 3 (suite) --- Physique \& Collisions}
+  \begin{columns}
+    \column{0.48\textwidth}
+    \begin{block}{Gestion des obstacles}
+\begin{lstlisting}
+// Trou dans le sol
+if (currentY < -5)
+  crashed = true;
+
+// Mur rectangulaire
+obstacles.forEach(obs => {
+  if (nextX >= obs.x &&
+      nextX <= obs.x+obs.width &&
+      currentY < obs.y+obs.height)
+    crashed = true;
+});
+
+// Detection etoile
+const dist = Math.sqrt(
+  (nextX  - star.x)**2 +
+  (currentY - star.y)**2);
+if (dist < 2.5) collectStar(idx);
+\end{lstlisting}
+    \end{block}
+    \column{0.48\textwidth}
+    \begin{block}{Effets visuels}
+      \begin{itemize}
+        \item \success{Fum\'ee} grise derri\`ere la voiture (particules)
+        \item \danger{Explosion} rouge/orange au crash (30 particules)
+        \item \textcolor{myyellow}{\'Etoiles} pulsantes (animation \texttt{sin(time)})
+        \item \highlight{Inclinaison} selon la d\'eriv\'ee (\texttt{atan2})
+        \item \textcolor{mycyan}{Flamme} r\'eacteur (cercle orange anim\'e)
+      \end{itemize}
+    \end{block}
+    \begin{exampleblock}{Angle de la voiture}
+      \small $\theta = \arctan\!\left(\dfrac{\Delta Y}{\Delta X}\right)$
+      calcul\'e entre deux points cons\'ecutifs
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 4 --- Audio Synth\'etis\'e (Web Audio API)}
+  \begin{columns}
+    \column{0.5\textwidth}
+\begin{lstlisting}
+// Son victoire (accord Do Mi Sol)
+const playWinSound = () => {
+  const ctx = new AudioContext();
+  const now = ctx.currentTime;
+  [523.25, 659.25, 783.99]
+    .forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(
+        0.001, now + 0.5 + i*0.1);
+      osc.start(now + i*0.1);
+    });
+};
+\end{lstlisting}
+    \column{0.48\textwidth}
+    \begin{block}{3 sons diff\'erents}
+      \begin{itemize}
+        \item \success{Victoire} --- accord Do-Mi-Sol\\
+          (oscillateur \texttt{sine})
+        \item \textcolor{myyellow}{\'Etoile} --- son aigu montant\\
+          (oscillateur \texttt{triangle})
+        \item \danger{Crash} --- son grave descendant\\
+          (oscillateur \texttt{sawtooth})
+      \end{itemize}
+    \end{block}
+    \vspace{0.3cm}
+    \textbf{Z\'ero fichier audio !} Tout est g\'en\'er\'e \`a la vol\'ee par
+    l'API Web Audio avec des oscillateurs.
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 5 --- Syst\`eme de Niveaux (levels.js)}
+  \begin{block}{8 niveaux progressifs --- du Tutorial au Cauchemar}
+  \end{block}
+  \begin{tabular}{clll}
+    \toprule
+    \textcolor{mycyan}{\#} & \textcolor{myyellow}{Titre} & \textcolor{mylightslate}{Difficult\'e} & \textcolor{white}{Concept math\'ematique}\\
+    \midrule
+    1 & D\'ecollage & Tuto & Fonction lin\'eaire $ax$\\
+    2 & Le Grand Saut & Facile & Saut par-dessus un trou\\
+    3 & La Parabole & Moyen & Parabole $-a(x-b)^2+c$\\
+    4 & Sinus Valley & Difficile & Fonctions trigonom\'etriques\\
+    5 & La Pyramide & Moyen & Valeur absolue $|x|$\\
+    6 & Les Tron\c{c}ons & Difficile & Fonctions par morceaux\\
+    7 & Slalom G\'eant & Expert & Combinaison $|\sin(x)|$\\
+    8 & L'Examen Final & Cauchemar & Tout combiner\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.2cm}\\
+  Chaque niveau d\'efinit : \tech{holes[]} (trous), \tech{obstacles[]} (murs),
+  \tech{stars[]} (\'etoiles), \tech{fuelObjective} et un \tech{memo} p\'edagogique.
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 6 --- Mode Multijoueur (Socket.io)}
+  \begin{block}{Architecture R\'eseau}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.72, every node/.style={font=\small}]
+      \node[draw=mycyan,fill=myslate!30!darkbg,text=white,rounded corners,
+            minimum width=3cm,minimum height=0.8cm] (pc) at (4,3)
+            {PC H\^ote (MultiplayerHost)};
+      \node[draw=mypurple,fill=myslate!30!darkbg,text=white,rounded corners,
+            minimum width=3cm,minimum height=0.8cm] (srv) at (4,1.5)
+            {server.js :4000};
+      \node[draw=myyellow,fill=myslate!30!darkbg,text=white,rounded corners,
+            minimum width=2.2cm] (p1) at (0.5,0) {Joueur 1};
+      \node[draw=mygreen,fill=myslate!30!darkbg,text=white,rounded corners,
+            minimum width=2.2cm] (p2) at (4,0) {Joueur 2};
+      \node[draw=myred,fill=myslate!30!darkbg,text=white,rounded corners,
+            minimum width=2.2cm] (p3) at (7.5,0) {Joueur 3};
+      \draw[<->,mycyan,thick] (pc) -- node[right,white,font=\tiny]{Socket.io WS} (srv);
+      \draw[<->,myyellow,dashed] (p1) -- (srv);
+      \draw[<->,mygreen,dashed] (p2) -- (srv);
+      \draw[<->,myred,dashed] (p3) -- (srv);
+      \node[draw=white,rounded corners,fill=darkbg,text=white,font=\tiny,
+            minimum width=3cm] at (4,4.2) {QR Code : http://IP:3000/join};
+    \end{tikzpicture}
+    \end{center}
+  \end{block}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 6 (suite) --- Flux Multijoueur}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Serveur (server.js) --- 4 \'ev\'enements}
+\begin{lstlisting}
+// 1. Joueur rejoint
+socket.on('join_game', (data) => {
+  players.push({id: socket.id, ...data});
+  io.emit('players_update', players);
+});
+
+// 2. Joueur envoie ses equations
+socket.on('submit_functions', (d) => {
+  socket.broadcast.emit(
+    'receive_functions', {
+      playerId: socket.id,
+      segments: d.segments
+  });
+});
+
+// 3. Hote change le niveau
+socket.on('host_update', (data) => {
+  socket.broadcast.emit('host_update', data);
+});
+
+// 4. Deconnexion
+socket.on('disconnect', () => {
+  players = players.filter(
+    p => p.id !== socket.id);
+  io.emit('players_update', players);
+});
+\end{lstlisting}
+    \end{block}
+    \column{0.46\textwidth}
+    \begin{exampleblock}{Phases de Course}
+      \begin{enumerate}
+        \item \textbf{lobby} --- QR Code affich\'e
+        \item \textbf{waiting} --- chacun tape ses \'equations
+        \item \textbf{racing} --- simulation sur le PC
+        \item \textbf{finished} --- R\'esultats + historique
+      \end{enumerate}
+    \end{exampleblock}
+    \vspace{0.3cm}
+    \begin{alertblock}{Cl\'e de conception}
+      Le serveur ne simule \textbf{pas} la physique.
+      Il ne fait que \textbf{relayer} les \'ev\'enements.
+      Le PC h\^ote recalcule tous les trajets localement.
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Fonctionnalit\'e 7 --- Garage \& Personnalisation}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Options disponibles}
+      \begin{itemize}
+        \item Couleur de la voiture (8 choix)
+        \item Couleur du trac\'e math\'ematique
+        \item Couleur de l'arri\`ere-plan
+        \item Affichage / masquage de la grille
+        \item Remise \`a z\'ero de la progression
+      \end{itemize}
+    \end{block}
+    \vspace{0.3cm}
+    \begin{block}{Sauvegarde automatique}
+      Utilisation du \tech{localStorage} pour persister les
+      pr\'ef\'erences sans base de donn\'ees.
+    \end{block}
+    \column{0.48\textwidth}
+\begin{lstlisting}
+// Garage.jsx
+const COLORS = [
+  '#facc15', // Jaune
+  '#ef4444', // Rouge
+  '#3b82f6', // Bleu
+  '#10b981', // Vert
+  '#a855f7', // Violet
+  '#ec4899', // Rose
+  '#ffffff', // Blanc
+  '#000000', // Noir
+];
+
+// Bouton couleur + selection
+{COLORS.map(c => (
+  <button
+    onClick={() => setCarColor(c)}
+    style={{
+      background: c,
+      border: carColor === c
+        ? '3px solid white'
+        : 'none'
+    }} />
+))}
+\end{lstlisting}
+  \end{columns}
+\end{frame}
+
+%======================================================================
+\section{Diagrammes et Architecture}
+%======================================================================
+
+\begin{frame}{Diagramme de Flux --- Mode Solo}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.8,
+    box/.style={draw=mycyan,fill=myslate!30!darkbg,text=white,rounded corners,
+                minimum width=2.5cm,minimum height=0.7cm,font=\small},
+    decision/.style={draw=myyellow,fill=myslate!30!darkbg,text=white,diamond,
+                     aspect=2.5,font=\scriptsize},
+    arr/.style={->,mycyan,thick}]
+
+    \node[box] (home) at (0,5) {Home};
+    \node[box] (sel) at (3,5) {LevelSelect};
+    \node[box] (game) at (6,5) {Game.jsx};
+    \node[box] (eq) at (6,3.5) {Saisie f(x)};
+    \node[box] (calc) at (6,2) {calculateTerrain};
+    \node[box] (loop) at (6,0.5) {gameLoop (RAF)};
+    \node[decision] (crash) at (3,0.5) {crash?};
+    \node[decision] (win) at (9,0.5) {arriv\'ee?};
+    \node[box,draw=mygreen] (won) at (9,2) {\success{VICTOIRE}};
+    \node[box,draw=myred] (lost) at (3,2) {\danger{CRASH}};
+
+    \draw[arr] (home) -- node[above,white,font=\tiny]{JOUER} (sel);
+    \draw[arr] (sel) -- node[above,white,font=\tiny]{niveau} (game);
+    \draw[arr] (game) -- (eq);
+    \draw[arr] (eq) -- node[right,white,font=\tiny]{GO} (calc);
+    \draw[arr] (calc) -- (loop);
+    \draw[arr] (loop) -- (crash);
+    \draw[arr] (loop) -- (win);
+    \draw[arr] (crash) -- node[left,myred,font=\tiny]{oui} (lost);
+    \draw[arr] (win) -- node[right,mygreen,font=\tiny]{oui} (won);
+    \draw[->,mycyan,dashed] (lost) -- node[above,white,font=\tiny]{retry} (eq);
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Diagramme de Flux --- Mode Multijoueur}
+  \begin{center}
+  \begin{tikzpicture}[scale=0.78,
+    box/.style={draw=mypurple,fill=myslate!30!darkbg,text=white,rounded corners,
+                minimum width=2.8cm,minimum height=0.7cm,font=\small},
+    arr/.style={->,mypurple,thick}]
+
+    \node[box] (lobby) at (4,5) {Lobby + QR Code};
+    \node[box,draw=myyellow] (join) at (0.5,3.5) {Joueur rejoint};
+    \node[box] (wait) at (4,3.5) {En attente fonctions};
+    \node[box,draw=myyellow] (send) at (0.5,2) {Envoie f(x)};
+    \node[box] (race) at (4,2) {COURSE (racing)};
+    \node[box,draw=mygreen] (fin) at (4,0.5) {\success{R\'esultats + Historique}};
+    \node[box,draw=mycyan] (rev) at (7.5,2) {\tech{REVANCHE}};
+
+    \draw[arr] (lobby) -- node[right,white,font=\tiny]{PR\'EPARER} (wait);
+    \draw[->,myyellow,thick] (join) -- node[above,white,font=\tiny]{join\_game} (wait);
+    \draw[->,myyellow,thick] (send) -- node[above,white,font=\tiny]{submit} (race);
+    \draw[arr] (wait) -- node[right,white,font=\tiny]{tous pr\^ets} (race);
+    \draw[arr] (race) -- (fin);
+    \draw[->,mycyan,thick] (fin) -- (rev);
+    \draw[->,mycyan,thick,dashed] (rev) -- (wait);
+    \draw[->,mypurple,dashed] (fin) to[bend right=40] (lobby);
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+%======================================================================
+\section{D\'emonstration de Code Cl\'e}
+%======================================================================
+
+\begin{frame}{Code Cl\'e --- Calcul de la Trajectoire Multi-Segments}
+\begin{lstlisting}
+// Dans Game.jsx -- calculateTerrain()
+const getWorldY = (targetX) => {
+    const memoKey = Math.round(targetX * 10);
+    if (memo[memoKey] !== undefined) return memo[memoKey]; // Cache
+
+    // Trouver le bon segment
+    const activeSeg = [...segments].reverse()
+        .find(s => targetX >= s.start && targetX < s.end);
+    if (!activeSeg) return null; // Pas de fonction -> pas de route
+
+    // Continuite verticale entre segments
+    let startHeight = 0;
+    if (activeSeg.start > 0) {
+        const prevY = getWorldY(activeSeg.start - 0.01);
+        startHeight = prevY === null ? 0 : prevY;
+    }
+
+    // x local : repart de 0 au debut de chaque segment
+    const localX = targetX - activeSeg.start;
+    const finalY = startHeight + evaluate(activeSeg.eq, localX);
+    memo[memoKey] = finalY; // Memoisation pour la performance
+    return finalY;
+};
+\end{lstlisting}
+  \vspace{0.2cm}
+  \textcolor{myyellow}{\textbf{Astuce :}} M\'emo\"isation via dictionnaire \texttt{memo} pour \'eviter
+  le recalcul $\rightarrow$ indispensable pour les grandes distances.
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Code Cl\'e --- Dessin de la Voiture (Canvas 2D)}
+\begin{lstlisting}
+// Dans Game.jsx -- drawCarFrame()
+// 1. Angle d'inclinaison (derivee numerique)
+const dy = -(nextPoint.realY - point.realY) * scale;
+const dx =  (nextPoint.realX - point.realX) * scale;
+const angle = Math.atan2(dy, dx);
+
+// 2. Dessin de la voiture
+ctx.save();
+ctx.translate(px, py);
+ctx.rotate(angle);        // Inclinaison selon la pente
+
+// Chassis (arrondi)
+ctx.fillStyle = carColor;
+ctx.beginPath();
+ctx.roundRect(-20, -12, 40, 12, 4);
+ctx.fill();
+
+// Cockpit (vitre bleue)
+ctx.fillStyle = '#0ea5e9';
+ctx.roundRect(-5, -22, 20, 10, [8, 8, 0, 0]);
+ctx.fill();
+
+// Roues
+ctx.arc(-12, 4, 8, 0, Math.PI*2); // Roue AR
+ctx.arc( 12, 4, 8, 0, Math.PI*2); // Roue AV
+ctx.restore();
+\end{lstlisting}
+\end{frame}
+
+%======================================================================
+\section{Business Plan}
+%======================================================================
+
+\begin{frame}{Business Plan --- Vision \& March\'e}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Proposition de Valeur}
+      GraphRacer rend l'apprentissage des fonctions math\'ematiques
+      \textbf{engageant} via la \textbf{gamification} et la \textbf{comp\'etition}.
+      Le joueur \textit{ressent} la fonction avant de la comprendre formellement.
+    \end{block}
+    \vspace{0.3cm}
+    \begin{block}{March\'es Cibles}
+      \begin{itemize}
+        \item \textbf{B2C} : Lyc\'eens, \'etudiants pr\'epa / IUT
+        \item \textbf{B2B} : \'Etablissements scolaires, ENT
+        \item \textbf{B2G} : Appels d'offres \'Education Nationale
+      \end{itemize}
+    \end{block}
+    \column{0.46\textwidth}
+    \begin{exampleblock}{Chiffres Cl\'es EdTech (France)}
+      \begin{itemize}
+        \item \textbf{3,2 Md\$} March\'e EdTech Europe 2024
+        \item \textbf{+15\%/an} croissance post-Covid
+        \item \textbf{12 M} \'el\`eves lyc\'ee/coll\`ege
+        \item \textbf{68\%} enseignants favorables aux outils gamifi\'es
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Business Plan --- Mod\`ele \'Economique}
+  \begin{block}{3 Mod\`eles de Revenus}
+  \end{block}
+  \begin{tabular}{p{2.5cm}p{3.5cm}p{3.5cm}}
+    \toprule
+    \textcolor{mycyan}{\textbf{Mod\`ele}} & \textcolor{myyellow}{\textbf{Offre}} & \textcolor{mylightslate}{\textbf{Prix estim\'e}}\\
+    \midrule
+    \success{Freemium} &
+    Niveaux 1--4 gratuits, 5--8 payants &
+    \textbf{4,99 \euro/mois}\\[4pt]
+    \success{Licence \'Ecole} &
+    Acc\`es illimit\'e + tableau de bord prof &
+    \textbf{500--2000 \euro/an}\\[4pt]
+    \success{Marque Blanche} &
+    Int\'egration ENT (Pronote, Moodle) &
+    \textbf{Devis 10--50 k\euro}\\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.4cm}
+  \begin{alertblock}{Avantage concurrentiel}
+    Le mode \textbf{multijoueur local sans inscription} (QR Code) est unique :
+    d\'eploiement imm\'ediat en classe sans infrastructure IT complexe.
+  \end{alertblock}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Business Plan --- Feuille de Route}
+  \begin{tabular}{p{2cm}p{8cm}}
+    \toprule
+    \textcolor{mycyan}{\textbf{Phase}} & \textcolor{white}{\textbf{Objectifs}}\\
+    \midrule
+    \textbf{V1 (actuel)} &
+    8 niveaux, mode solo, multijoueur LAN, garage\\[4pt]
+    \textbf{V2 (6 mois)} &
+    \'Editeur de niveaux, tableau de bord enseignant,
+    authentification, scores en ligne\\[4pt]
+    \textbf{V3 (12 mois)} &
+    Battle Royale (16 joueurs), statistiques par fonction,
+    int\'egration LMS, PWA mobile\\[4pt]
+    \textbf{V4 (18 mois)} &
+    IA adaptative (niveau selon erreurs), calcul int\'egral / diff\'erentiel\\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Business Plan --- Finances Pr\'evisionnelles}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Investissement Initial}
+      \begin{itemize}
+        \item D\'eveloppement V2 : \textbf{15 000 \euro}
+        \item Design UX/UI : \textbf{5 000 \euro}
+        \item Infrastructure Cloud : \textbf{1 200 \euro/an}
+        \item Marketing : \textbf{3 000 \euro}
+        \item \textbf{Total Y1 : $\approx$ 24 200 \euro}
+      \end{itemize}
+    \end{block}
+    \column{0.46\textwidth}
+    \begin{exampleblock}{Projections Revenus}
+      \begin{tabular}{lrr}
+        \toprule
+        & \textbf{An 1} & \textbf{An 3}\\
+        \midrule
+        Freemium & 5 k\euro & 80 k\euro\\
+        Licences & 20 k\euro & 200 k\euro\\
+        Marque B. & 10 k\euro & 100 k\euro\\
+        \midrule
+        \textbf{Total} & \textbf{35 k} & \textbf{380 k}\\
+        \bottomrule
+      \end{tabular}
+    \end{exampleblock}
+    \begin{alertblock}{Seuil de rentabilit\'e}
+      \textbf{Estim\'e \`a 14 mois} avec 40 licences \'ecoles + 500 abonn\'es
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+%----------------------------------------------------------------------
+\begin{frame}{Business Plan --- Analyse SWOT}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{exampleblock}{\success{Forces}}
+      \begin{itemize}
+        \item Concept original (\'equation = route)
+        \item Multi sans infrastructure (QR)
+        \item Stack JS moderne, maintenable
+        \item Contenu p\'edagogique int\'egr\'e (m\'emos)
+        \item 0 d\'ependance lourde (pas de moteur 3D)
+      \end{itemize}
+    \end{exampleblock}
+    \begin{alertblock}{\danger{Faiblesses}}
+      \begin{itemize}
+        \item Multi limit\'e au LAN actuellement
+        \item Pas d'authentification ni BDD
+        \item Physique simplifi\'ee (pas de gravit\'e)
+      \end{itemize}
+    \end{alertblock}
+    \column{0.46\textwidth}
+    \begin{block}{\highlight{Opportunit\'es}}
+      \begin{itemize}
+        \item Plan num\'erique \'Education Nationale
+        \item Partenariat \'editeurs manuels scolaires
+        \item Concours d'innovation p\'edagogique
+        \item Export international
+      \end{itemize}
+    \end{block}
+    \begin{block}{\textcolor{mylightslate}{Menaces}}
+      \begin{itemize}
+        \item Concurrence Desmos, GeoGebra (gratuit)
+        \item Cycles d'achat lents en \'education
+        \item D\'ependance aux appareils des \'el\`eves
+      \end{itemize}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+%======================================================================
+\section{Conclusion}
+%======================================================================
+
+\begin{frame}{Conclusion}
+  \begin{columns}
+    \column{0.55\textwidth}
+    \begin{block}{Ce que nous avons r\'ealis\'e}
+      \begin{itemize}
+        \item[$\checkmark$] Moteur math\'ematique temps r\'eel (\'equation $\to$ courbe)
+        \item[$\checkmark$] Physique 2D avec particules, sons, collisions
+        \item[$\checkmark$] 8 niveaux p\'edagogiques progressifs
+        \item[$\checkmark$] Mode multijoueur LAN via QR Code (Socket.io)
+        \item[$\checkmark$] Personnalisation (Garage) avec persistance
+        \item[$\checkmark$] Architecture modulaire et maintenable
+      \end{itemize}
+    \end{block}
+    \column{0.42\textwidth}
+    \begin{exampleblock}{Technologies ma\^itris\'ees}
+      \tech{React 19} $\cdot$ \tech{Canvas API}\\
+      \tech{Socket.io} $\cdot$ \tech{Express}\\
+      \tech{Web Audio API} $\cdot$ \tech{new Function}\\
+      \tech{requestAnimationFrame}\\
+      \tech{localStorage} $\cdot$ \tech{QRCode}
+    \end{exampleblock}
+    \vspace{0.4cm}
+    \begin{alertblock}{Prochaine \'etape}
+      D\'eploiement sur \textbf{Vercel} (front) + \textbf{Railway} (socket)
+      pour des tests en conditions r\'eelles de classe.
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+%---------- SLIDE FIN -------------------------------------------------
+\begin{frame}[plain]
+  \vfill
+  \centering
+  {\Huge \textcolor{mycyan}{\textbf{GRAPH}}\textbf{RACER}}\\[0.5cm]
+  {\Large \textcolor{mylightslate}{Merci pour votre attention !}}\\[1cm]
+  {\large \textbf{SAAD OMIT} \quad \& \quad \textbf{IZADINE}}\\[0.5cm]
+  \begin{tikzpicture}
+    \draw[mycyan, thick, ->] (0,0) -- (7,0);
+    \draw[myyellow, very thick, domain=0:6.8, samples=60]
+      plot (\x, {0.8*sin(\x r * 0.8) + 0.8});
+    \fill[myyellow] (3.0, 1.45) rectangle (3.6, 1.75);
+    \fill[darkbg] (3.1, 1.3) circle (0.12);
+    \fill[darkbg] (3.5, 1.3) circle (0.12);
+    \node[myred] at (6.5, 1.5) {\Large $\blacksquare$};
+  \end{tikzpicture}\\[0.4cm]
+  {\small \textcolor{mylightslate}{
+    \texttt{github.com/saadOmt/GraphRacer}
+    \quad $|$ \quad
+    Stack: React $\cdot$ Socket.io $\cdot$ Canvas API
+  }}
+  \vfill
+\end{frame}
+
+\end{document}

@@ -1,0 +1,37 @@
+# Node.js & Vite
+node_modules/
+dist/
+build/
+.next/
+.cache/
+npm-debug.log
+yarn-error.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist-ssr/
+*.local
+*.js.map
+
+# Testing
+.jest/
+coverage/
+
+# OS
+Thumbs.db
+*.log
+
+# Vite
+.vite/
